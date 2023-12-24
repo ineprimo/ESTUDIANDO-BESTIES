@@ -5,9 +5,11 @@ export default class Character extends Phaser.GameObjects.Sprite {
 	 * @param {number} x - coordenada x
 	 * @param {number} y - coordenada y
 	 */
-	constructor(scene, x, y) {
-		super(scene, x, y, 'character');
+	constructor(scene, x, y, key) {
+		super(scene, x, y, 'Character');
 		this.speed = 140; // Nuestra velocidad de movimiento será 140
+
+		this.jett = new Phaser.GameObjects.Sprite(scene, x, y, key, 3); 
 
 		this.scene.add.existing(this); //Añadimos el personaje a la escena
 
