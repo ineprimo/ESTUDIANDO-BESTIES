@@ -86,17 +86,8 @@ export default class Jetpac extends Phaser.Scene {
 
         // ---------------------------- INPUT ---------------------------------
 
-        // pasarle la escena la funcion
-        this.input.keyboard.on('keydown-W', function(scene) {
-
-            console.log("NVRIFEOJDKPWL");
-
-
-            console.log(scene.playerObj);
-            // impulso
-            //this.playerObj.propulsar();
-            
-        })
+        // registra la tecla w en this.w
+        this.w = this.input.keyboard.addKey('W');
 
 
         // ---------------------------- COLISIONES -----------------------------
@@ -108,15 +99,9 @@ export default class Jetpac extends Phaser.Scene {
 
     update(){
 
-
-        if(this.playerObj != undefined){
-
-            this.playerObj.getX();
+        if(this.w.isDown){
+            this.playerObj.propulsar();
         }
-        else {
-            //console.log("pero ue");
-        }
-        
     }
 
 }

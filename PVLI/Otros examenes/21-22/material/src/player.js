@@ -11,6 +11,7 @@ export default class Player extends Phaser.GameObjects.Container {
         // crea el sprite inicial
         this.jett = this.scene.add.image(x, y, key);
 
+
         // le añade fisicas
         this.scene.physics.add.existing(this.jett);
 
@@ -34,7 +35,12 @@ export default class Player extends Phaser.GameObjects.Container {
         console.log("holiwis");
 
         
-        this.jett.body.velocity.add(-1);
+        //this.jett.y -= 10;
+
+
+        if(this.jett.body.velocity.y > -80){
+            this.jett.body.setVelocityY(this.jett.body.velocity.y - 10);
+        }
 
 
     }
