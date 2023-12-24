@@ -66,19 +66,13 @@ export default class Jetpac extends Phaser.Scene {
         this.floorLayer = this.map.createLayer('ground', tileset, 0, 0);
         this.floorLayer.setCollision(2);
 
-        this.player = this.physics.add.sprite(50,20, 'jett');
         this.playerObj = new Player(this, 20, 20, 'jett');
 
-        this.play = new Character(this, 70, 20, 'jett');
 
-        console.log(this.player);
         console.log(this.playerObj);
-        console.log(this.play);
 
         // colisiones especificas del player con la layer (tilemap)
         this.physics.add.collider(this.playerObj.getSprite(), this.floorLayer);
-        this.physics.add.collider(this.player, this.floorLayer);
-        this.physics.add.collider(this.play, this.floorLayer);
         this.floorLayer.setCollisionBetween(1,4);
 
         // ---------------------------- PLAYER ---------------------------------

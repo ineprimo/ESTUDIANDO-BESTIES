@@ -6,16 +6,9 @@ export default class Player extends Phaser.GameObjects.Container {
     constructor(scene, x, y, key) {
         super(scene, x, y);
 
-        //this.jett = new Phaser.GameObjects.Sprite(this.scene, x, y, key, 3); 
         this.jett = this.scene.physics.add.sprite(x, y, 'jett');
 
-        //this.scene.physics.add.sprite(x, y, key);
-
-        // crea el sprite inicial
         this.scene.add.existing(this);
-
-        // Agregamos el personaje a las físicas para que Phaser lo tenga en cuenta
-		//scene.physics.add.existing(this);
     }
 
     
