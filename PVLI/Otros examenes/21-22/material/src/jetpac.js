@@ -60,8 +60,9 @@ export default class Jetpac extends Phaser.Scene {
         // el nombre de la capa en el tiled ("name" : "ground", dentro de cada capa), 
         // el tileset que hemos hecho hace nada (tileset), y las coordenadas en las que
         // queremos poner el tileset
-        const layer = this.map.createLayer('ground', tileset, 0, 0);
+        this.floorLayer = this.map.createLayer('ground', tileset, 0, 0);
 
+        
 
         // ---------------------------- PLAYER ---------------------------------
 
@@ -93,9 +94,14 @@ export default class Jetpac extends Phaser.Scene {
         // ---------------------------- COLISIONES -----------------------------
 
         // colisiones especificas del player con la layer (tilemap)
-        //this.physics.add.collider(player, layer);
+        this.physics.add.collider(this.playerObj.getSprite(), this.floorLayer);
+
+        console.log(this.playerObj.getSprite());
+        
+        this.floorLayer.setCollision([1,2]);
 
     }
+
 
     update(){
 
