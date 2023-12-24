@@ -71,12 +71,13 @@ export default class Jetpac extends Phaser.Scene {
         // this es Scene
         this.jettAnim = this.anims.create({
             key: 'jumpingJett',
-            frames: this.anims.generateFrameNumbers('jett', { start: 0, end: 7 }),
+            frames: this.anims.generateFrameNumbers('jett', { start: 0, end: 2 }),
             frameRate: 2, // Velocidad de la animación
             repeat: -1    // Animación en bucle
         });
 
-        let playerObj = new Player(this, 20, 20, 'jett');
+
+        this.playerObj = new Player(this, 20, 20, 'jett');
 
         
 
@@ -85,12 +86,15 @@ export default class Jetpac extends Phaser.Scene {
 
         // ---------------------------- INPUT ---------------------------------
 
-        this.input.keyboard.on('keydown-W', function() {
+        // pasarle la escena la funcion
+        this.input.keyboard.on('keydown-W', function(scene) {
 
             console.log("NVRIFEOJDKPWL");
 
+
+            console.log(scene.playerObj);
             // impulso
-            playerObj.propulsar();
+            //this.playerObj.propulsar();
             
         })
 
@@ -104,9 +108,15 @@ export default class Jetpac extends Phaser.Scene {
 
     update(){
 
+
+        if(this.playerObj != undefined){
+
+            this.playerObj.getX();
+        }
+        else {
+            //console.log("pero ue");
+        }
+        
     }
-
-
-
 
 }
