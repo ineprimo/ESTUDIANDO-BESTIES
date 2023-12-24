@@ -10,8 +10,13 @@ export default class Player extends Phaser.GameObjects.Container {
 
         //scene.add.container(this.jett);
 
-        this.jett.setScale(1,1);
-        this.add(this.jett);
+        //this.add(this.jett);
+
+
+
+
+        this.jett2 = this.scene.add.image(x, y, key);
+        this.scene.physics.add.existing(this.jett);
 
 
         //this.jett3 = scene.add.sprite(new Phaser.GameObjects.Sprite(scene, 20, 20, key, 0));
