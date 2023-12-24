@@ -12,7 +12,14 @@ window.onload = ()=>{
             autoCenter: Phaser.Scale.Center.CENTER_HORIZONTALLY
         },
         pixelArt: true,
-        scene: [ Jetpac ]
+        scene: [ Jetpac ],
+        physics: {
+            default: 'arcade', 
+            arcade: {
+              gravity: { y : 10},
+              debug: true
+            },
+        }
     };
 
     new Phaser.Game(config);

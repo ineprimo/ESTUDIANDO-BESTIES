@@ -1,4 +1,5 @@
 //
+import Player from "./player.js"
 
 //
 export default class Jetpac extends Phaser.Scene {
@@ -24,6 +25,12 @@ export default class Jetpac extends Phaser.Scene {
 
         // carga el archivo con los patrones para el mapa (solo lo visual)
         this.load.image('mapSprites', './assets/sprites/tileset.png');
+
+
+        // ------------------------------ CARGA DE SPRITES -------------------------------
+        // carga del sprite del jugador
+        this.load.image('jetPacSprite', './assets/sprites/jetpac.png');
+
     }
 
 
@@ -51,6 +58,20 @@ export default class Jetpac extends Phaser.Scene {
         // el tileset que hemos hecho hace nada (tileset), y las coordenadas en las que
         // queremos poner el tileset
         const layer = this.map.createLayer('ground', tileset, 0, 0);
+
+
+        // ---------------------------- PLAYER ---------------------------------
+
+        //const play = new Player();
+
+        let playerObj = new Player(this, 0, 0);
+        this.add.existing(playerObj);
+
+
+        // ---------------------------- COLISIONES -----------------------------
+
+        // colisiones especificas del player con la layer (tilemap)
+        //this.physics.add.collider(player, layer);
 
     }
 
