@@ -1,3 +1,5 @@
+import Jetpac from "./jetpac.js"
+
 
 window.onload = ()=>{
 
@@ -10,8 +12,9 @@ window.onload = ()=>{
             autoCenter: Phaser.Scale.Center.CENTER_HORIZONTALLY
         },
         pixelArt: true,
-        scene: [  ]
+        scene: [ Jetpac ]
     };
 
     new Phaser.Game(config);
 };
+
