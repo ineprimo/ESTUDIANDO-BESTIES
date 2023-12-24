@@ -31,6 +31,9 @@ export default class Jetpac extends Phaser.Scene {
         // carga del sprite del jugador
         this.load.image('jetPacSprite', './assets/sprites/jetpac.png');
 
+        // En el preload
+        this.load.spritesheet('jett', './assets/sprites/jetpac.png', { frameWidth: 17, frameHeight: 24 });
+
     }
 
 
@@ -62,10 +65,30 @@ export default class Jetpac extends Phaser.Scene {
 
         // ---------------------------- PLAYER ---------------------------------
 
-        //const play = new Player();
+        this.add.sprite(20, 20, 'jett');
 
-        let playerObj = new Player(this, 0, 0);
-        this.add.existing(playerObj);
+        // Como 'mummy' es un spritesheet, puede identificar los frames
+        // this es Scene
+        this.jettAnim = this.anims.create({
+            key: 'jumpingJett',
+            frames: this.anims.generateFrameNumbers('jett', { start: 0, end: 7 }),
+            frameRate: 2, // Velocidad de la animación
+            repeat: -1    // Animación en bucle
+        });
+
+        let playerObj = new Player(this, 0, 0, this.jettAnim);
+
+        // this.play('standing_mummy');
+
+        // ---------------------------- INPUT ---------------------------------
+
+        // input de la w
+        this.w = this.scene.input.keyboard.addKey('W');
+
+         // input por barra espaciadora
+        this.input.keyboard.on(this.w, function() {
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAA");
+        })
 
 
         // ---------------------------- COLISIONES -----------------------------
