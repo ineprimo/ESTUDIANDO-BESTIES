@@ -65,7 +65,7 @@ export default class Jetpac extends Phaser.Scene {
 
         // ---------------------------- PLAYER ---------------------------------
 
-        this.add.sprite(20, 20, 'jett');
+        //this.add.sprite(20, 20, 'jett');
 
         // Como 'mummy' es un spritesheet, puede identificar los frames
         // this es Scene
@@ -76,18 +76,22 @@ export default class Jetpac extends Phaser.Scene {
             repeat: -1    // Animación en bucle
         });
 
-        let playerObj = new Player(this, 0, 0, this.jettAnim);
+        let playerObj = new Player(this, 20, 20, 'jett');
 
+        
+
+        //console.log(playerObj);
         // this.play('standing_mummy');
 
         // ---------------------------- INPUT ---------------------------------
 
-        // input de la w
-        this.w = this.scene.input.keyboard.addKey('W');
+        this.input.keyboard.on('keydown-W', function() {
 
-         // input por barra espaciadora
-        this.input.keyboard.on(this.w, function() {
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAA");
+            console.log("NVRIFEOJDKPWL");
+
+            // impulso
+            playerObj.propulsar();
+            
         })
 
 
