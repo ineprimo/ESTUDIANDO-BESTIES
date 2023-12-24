@@ -17,8 +17,6 @@ export default class Player extends Phaser.GameObjects.Container {
         this.scene.physics.add.existing(this.jett2);
    
 
-        
-
         // lo mete en la escena
         //this.scene.add(this.jett);
     }
