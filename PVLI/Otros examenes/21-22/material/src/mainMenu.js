@@ -25,12 +25,10 @@ export default class MainMenu extends Phaser.Scene {
     }
 
 
-    playGame(mode){
-        // debug
-        console.log("vas a jugar modo: " +  mode);
+    playGame(mode, scene){
 
         // cambia de escena y le pasa la difficultad
-        //
+        scene.scene.start("Jetpac", {datos: mode});
 
     }
 }

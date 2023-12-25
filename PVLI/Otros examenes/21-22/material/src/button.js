@@ -21,7 +21,7 @@ export default class Button extends Phaser.GameObjects.Container {
         this.hitbox.on('pointerdown', () => {
 
             // callback
-            callback(difficulty);
+            callback(difficulty, this.scene);
 
         });
     }

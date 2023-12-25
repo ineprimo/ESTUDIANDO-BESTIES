@@ -12,6 +12,13 @@ export default class Jetpac extends Phaser.Scene {
     }
 
 
+    /**
+	 * función init, recibimos la información desde la escena que la llama
+	 */
+	init(data){
+        this.diff = data;
+		console.log(data)
+	}
     // load de las texturas
     preload(){
 
@@ -63,6 +70,9 @@ export default class Jetpac extends Phaser.Scene {
         // queremos poner el tileset
         this.floorLayer = this.map.createLayer('ground', tileset, 0, 0);
     
+
+
+
         // ---------------------------- PLAYER ---------------------------------
 
         // creacion de las animaciones del player. Se ejecutan en el propio objeto Player pero 
@@ -89,6 +99,9 @@ export default class Jetpac extends Phaser.Scene {
         // this.play('jumpingJett');
 
 
+
+
+
         // ---------------------------- COLISIONES -----------------------------
 
         // activa las colisiones entre los dos objetos marcados, en este caso el player
@@ -110,6 +123,26 @@ export default class Jetpac extends Phaser.Scene {
         this.floorLayer.setCollisionBetween(1,4);
         
         
+
+        // ------------------------------- DIFICULTAD -------------------------------
+
+        if(this.diff.datos == 'easy'){
+            console.log('easy');
+
+            // ajustes de cooldown de meteoritos y polvos
+        }
+        else if(this.diff.datos == 'mid'){
+            console.log('mid');
+
+            // ajustes de cooldown de meteoritos y polvos
+
+        }
+        else if(this.diff.datos == 'hard'){
+            console.log('hard');
+
+            // ajustes de cooldown de meteoritos y polvos
+
+        }
 
     }
 
