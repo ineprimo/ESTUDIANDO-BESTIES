@@ -1,4 +1,5 @@
 import Jetpac from "./jetpac.js"
+import MainMenu from "./mainMenu.js"
 
 
 window.onload = ()=>{
@@ -12,7 +13,7 @@ window.onload = ()=>{
             autoCenter: Phaser.Scale.Center.CENTER_HORIZONTALLY
         },
         pixelArt: true,
-        scene: [ Jetpac ],
+        scene: [ Jetpac, MainMenu ],
         physics: {
             default: 'arcade', 
             arcade: {
