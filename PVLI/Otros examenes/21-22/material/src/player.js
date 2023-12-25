@@ -79,10 +79,6 @@ export default class Player extends Phaser.GameObjects.Container {
             this.jett.y = 15;
 
         }
-
-        
-
-        
     }
 
     move(dir){
@@ -98,10 +94,13 @@ export default class Player extends Phaser.GameObjects.Container {
         // le pones la posicion del otro extremo
         if(this.jett.x <= 0){
             
-            // seria mejor coger la anchura de la ventana pero aun no se hacerlo
-            this.jett.x = 256;
+            // this.scene.sys.game.canvas.width devuelve la anchura del canvas
+            // this.scene para coger la escena donde esta este objeto (en este caso
+            // jetpac.js), de ahi ya sys.game.canvas es para coger el canvas del juego.
+            // BASICAMENTE: para usar sys.game.canvas hace falta sacarlo de una escena
+            this.jett.x = this.scene.sys.game.canvas.width;
         }
-        else if(this.jett.x >= 256){
+        else if(this.jett.x >= this.scene.sys.game.canvas.width){
             this.jett.x = 0;
         }
         
