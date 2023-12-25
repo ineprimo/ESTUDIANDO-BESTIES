@@ -13,7 +13,7 @@ window.onload = ()=>{
             autoCenter: Phaser.Scale.Center.CENTER_HORIZONTALLY
         },
         pixelArt: true,
-        scene: [ Jetpac, MainMenu ],
+        scene: [ MainMenu, Jetpac ],
         physics: {
             default: 'arcade', 
             arcade: {
