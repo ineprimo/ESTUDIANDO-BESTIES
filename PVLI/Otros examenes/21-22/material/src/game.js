@@ -19,6 +19,12 @@ window.onload = ()=>{
               gravity: { y : 100 },
               debug: true
             },
+            checkCollision: {
+                up: true,
+                down: false,
+                left: false,
+                right: false
+            }
         }
     };
 

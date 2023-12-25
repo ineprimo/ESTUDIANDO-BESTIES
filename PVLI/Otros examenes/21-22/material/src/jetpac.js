@@ -1,6 +1,5 @@
 //
 import Player from "./player.js"
-import Character from "./character.js"
 
 //
 export default class Jetpac extends Phaser.Scene {
@@ -66,25 +65,28 @@ export default class Jetpac extends Phaser.Scene {
     
         // ---------------------------- PLAYER ---------------------------------
 
-        // Como 'mummy' es un spritesheet, puede identificar los frames
-        // this es Scene
-        this.jettAnim = this.anims.create({
+        // creacion de las animaciones del player. Se ejecutan en el propio objeto Player pero 
+        // no hace falta pasarlas por la constructora, son globales y 
+        this.anims.create({
             key: 'jumpingJett',
-            frames: this.anims.generateFrameNumbers('jett', { start: 0, end: 2 }),
-            frameRate: 2, // Velocidad de la animación
-            repeat: -1    // Animación en bucle
+            frames: this.anims.generateFrameNumbers('jett', { start: 0, end: 5 }),
+            frameRate: 4, // Velocidad de la animación
+            repeat: 0    // Animación en bucle
         });
+
+        this.anims.create({
+            key: 'floatingJett',
+            frames: this.anims.generateFrameNumbers('jett', { start: 0, end: 5 }),
+            frameRate: 4, // Velocidad de la animación
+            repeat: 0    // Animación en bucle
+        });
+        
 
         // crea un objet de tipo player (especificaciones en el player)
         this.playerObj = new Player(this, 20, 20, 'jett');
 
         // animacion (WIP)
         // this.play('jumpingJett');
-
-        // ---------------------------- INPUT ---------------------------------
-
-        // registra la tecla w en this.w
-        this.w = this.input.keyboard.addKey('W');
 
 
         // ---------------------------- COLISIONES -----------------------------
@@ -112,11 +114,8 @@ export default class Jetpac extends Phaser.Scene {
     }
 
 
-    update(){
+    update(time, dt){
 
-        if(this.w.isDown){
-            this.playerObj.propulsar();
-        }
-    }
+	}
 
 }
