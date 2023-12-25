@@ -2,10 +2,11 @@
 
 export default class Button extends Phaser.GameObjects.Container {
 
-    constructor(scene, x, y, color, callback){
+    constructor(scene, x, y, color, difficulty, callback){
 
         super(scene, x, y);
 
+        // crea la superficie
         this.hitbox = this.scene.add.rectangle(x, y, 50, 30, color);
 
 
@@ -13,9 +14,16 @@ export default class Button extends Phaser.GameObjects.Container {
 		scene.add.existing(this);
 
 		// lo hace interactivo
-		this.box.setInteractive();
+		this.hitbox.setInteractive();
 
-        console.log(this.hitbox);
+
+        // cuando hace click
+        this.hitbox.on('pointerdown', () => {
+
+            // callback
+            callback(difficulty);
+
+        });
     }
 
 

@@ -20,11 +20,17 @@ export default class MainMenu extends Phaser.Scene {
 
     create(){
 
-        //this.hitbox = this.add.rectangle(50, 30, 50, 30, 0x6666ff);
+        // crea el boton
+        this.but = new Button(this, 50, 30, 0x63ff4f, 'easy', this.playGame);
+    }
 
-        this.but = new Button(this, 50, 30, 0x63ff4f);
-        console.log(this.hitbox);
 
+    playGame(mode){
+        // debug
+        console.log("vas a jugar modo: " +  mode);
+
+        // cambia de escena y le pasa la difficultad
+        //
 
     }
 }
