@@ -27,7 +27,17 @@ export default class MainMenu extends Phaser.Scene {
         // para poder usarlo luego dentro del propio metodo. En js se pasa sin
         // parentesis (aun no se por que pero si no no te deja usarlo y te pide una
         // funcion, puede que sea por eso)
-        this.but = new Button(this, 50, 30, 0x63ff4f, 'easy', this.playGame);
+        this.easyButton = new Button(this, 50, 30, 0x63ff4f, 'easy', this.playGame);
+
+        this.midButton = new Button(this, 50, 90, 0xe2ff29, 'mid', this.playGame);
+
+        this.hardButton = new Button(this, 50, 150, 0xff250e, 'hard', this.playGame);
+
+        // CODIGOS DE COLORES BASICOS (saturados): https://encycolorpedia.es/
+        // verde => 0x63ff4f        azul => 0x126bff
+        // amarillo => 0xe2ff29     rosa => 0xff2cd7
+        // rojo => 0xff250e         negro => 0x010101 (por ejemplo)
+        // morado => 0xa14ad7       blanco => 0x#ffffff (por ejemplo)
     }
 
 
