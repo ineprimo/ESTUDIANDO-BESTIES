@@ -6,8 +6,12 @@ export default class Player extends Phaser.GameObjects.Container {
     constructor(scene, x, y, key) {
         super(scene, x, y);
 
+        // crea un sprite de ARCADE con fisicas con la posicion y la imagen
+        // en este caso spritesheet (esta como 'jett' ahra pero paso de mirarlo,
+        // deberia ser key)
         this.jett = this.scene.physics.add.sprite(x, y, 'jett');
 
+        // añade a la escena (jetpac.js) el objeto entero
         this.scene.add.existing(this);
     }
 
@@ -30,6 +34,10 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
 
+
+    // metodo auxiliar que devuelve el SPRITE DE ARCADE para poder hacer uso
+    // de, por ejemplo, el body fuera de este container (para colisiones de
+    // momento)
     getSprite(){
         return this.jett;
     }

@@ -29,10 +29,11 @@ export default class Jetpac extends Phaser.Scene {
 
 
         // ------------------------------ CARGA DE SPRITES -------------------------------
-        // carga del sprite del jugador
+        // carga del sprite del jugador => no hace falta pero aqui esta de chill
         this.load.image('jetPacSprite', './assets/sprites/jetpac.png');
 
-        // En el preload
+        // carga del spritesheet del personaje principal, con el id para el codigo, 
+        // la raiz y las dimensiones de cada frame, para poder dividirlo en los que sea
         this.load.spritesheet('jett', './assets/sprites/jetpac.png', { frameWidth: 17, frameHeight: 24 });
 
     }
@@ -40,8 +41,6 @@ export default class Jetpac extends Phaser.Scene {
 
     //
     create(){
-
-        
 
         // ----------------------------- CREACION DEL TILE MAP -----------------------------
         // crea un tilemap con la key 'map' (json) y con las dimensiones 64x64
@@ -64,17 +63,7 @@ export default class Jetpac extends Phaser.Scene {
         // el tileset que hemos hecho hace nada (tileset), y las coordenadas en las que
         // queremos poner el tileset
         this.floorLayer = this.map.createLayer('ground', tileset, 0, 0);
-        this.floorLayer.setCollision(2);
-
-        this.playerObj = new Player(this, 20, 20, 'jett');
-
-
-        console.log(this.playerObj);
-
-        // colisiones especificas del player con la layer (tilemap)
-        this.physics.add.collider(this.playerObj.getSprite(), this.floorLayer);
-        this.floorLayer.setCollisionBetween(1,4);
-
+    
         // ---------------------------- PLAYER ---------------------------------
 
         // Como 'mummy' es un spritesheet, puede identificar los frames
@@ -86,13 +75,11 @@ export default class Jetpac extends Phaser.Scene {
             repeat: -1    // Animación en bucle
         });
 
+        // crea un objet de tipo player (especificaciones en el player)
+        this.playerObj = new Player(this, 20, 20, 'jett');
 
-        
-
-        
-
-        //console.log(playerObj);
-        // this.play('standing_mummy');
+        // animacion (WIP)
+        // this.play('jumpingJett');
 
         // ---------------------------- INPUT ---------------------------------
 
@@ -102,7 +89,23 @@ export default class Jetpac extends Phaser.Scene {
 
         // ---------------------------- COLISIONES -----------------------------
 
-        //
+        // activa las colisiones entre los dos objetos marcados, en este caso el player
+        // (playerObj) y la capa del suelo (floorLayer)
+        // !! en el primer parametro esta .getSprite() porque, al ser player una clase
+        // de tipo container, cuando le llamas no es capaz de llegar al body, que es 
+        // lo que se encarga de mirar fisicas y colisones, asi que le paso directamente
+        // el arcade sprite (this.scene.physics.add.sprite() para que pueda llegar al body.
+        // Si se hiciera al player directamente en esta escena y no en una clase a aparte 
+        // no haria falta este detalle (!! .getSprite() es un metodo que he hecho yo auxiliar) )
+        this.physics.add.collider(this.playerObj.getSprite(), this.floorLayer);
+
+
+        // en la propia capa, decide que bloques tienen collider y cuales no
+        // se puede hacer por exclusion con layer.setCollisionByExclusion([93, 94, 95, 96], true);
+        //      siendo [93, .... 96] los ids de los bloques que excluir y true que activa las colisiones
+        // tambien se pueden hacer por propiedades pero no acabo de entender el metodo:
+        //      layer.setCollisionByProperty({ colisiona: true });
+        this.floorLayer.setCollisionBetween(1,4);
         
         
 
