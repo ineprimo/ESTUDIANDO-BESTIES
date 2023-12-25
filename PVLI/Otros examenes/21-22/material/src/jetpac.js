@@ -95,12 +95,6 @@ export default class Jetpac extends Phaser.Scene {
         // crea un objet de tipo player (especificaciones en el player)
         this.playerObj = new Player(this, 20, 20, 'jett');
 
-        // animacion (WIP)
-        // this.play('jumpingJett');
-
-
-
-
 
         // ---------------------------- COLISIONES -----------------------------
 

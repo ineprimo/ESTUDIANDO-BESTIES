@@ -14,7 +14,7 @@ export default class Player extends Phaser.GameObjects.Container {
         // deberia ser key)
         this.jett = this.scene.physics.add.sprite(x, y, 'jett');
 
-        //
+        // variable de velocidad para todo el objeto
         this.speed = 140;
 
         // ---------------------------- INPUT ---------------------------------
