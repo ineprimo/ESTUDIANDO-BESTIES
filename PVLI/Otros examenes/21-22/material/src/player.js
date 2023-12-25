@@ -54,6 +54,12 @@ export default class Player extends Phaser.GameObjects.Container {
 
     propulsar(){
 
+        // this.jett coge el objeto (el sprite), mientras que .body llega a la parte
+        // que controla las fisicas. .velocity llega a la velocidad que tiene el
+        // body y .y es entendible
+
+        // seVelocityY es un atajo porque creo que se podria hacer un -=
+
         // si la velocidad en la y es mayor que -80 sigue propulsando
         if(this.jett.body.velocity.y > -80 && this.jett.y >= 20){
 
@@ -63,37 +69,42 @@ export default class Player extends Phaser.GameObjects.Container {
             // animacion
             this.jett.play('jumpingJett');
         }
+
+
+        // LIMITE SUPERIOR: en el enunciado pone que no hay limite superior pero me 
+        // da cosita no ponerlo. De todas formas no creo que esta sea la manera 
+        // optima para poner un limite superior xd
         else if(this.jett.y <= 15){
 
-            // placeholder
             this.jett.y = 15;
 
         }
 
-        // this.jett coge el objeto (el sprite), mientras que .body llega a la parte
-        // que controla las fisicas. .velocity llega a la velocidad que tiene el
-        // body y .y es entendible
-
-        // seVelocityY es un atajo porque creo que se podria hacer un -=
+        
 
         
     }
 
     move(dir){
 
-        // settea el movimiento
+        // le pone una velocidad y una direccion al body del objeto.
+        // en principio hay que pasarle una velocidad (this.speed) 
+        // con un signo para indicar la direccion
         this.jett.body.setVelocityX(dir);
+
         
-        // toroidal 
+        // MOVIMIENTO TOROIDAL: basicamente significa que cuando se pasa de un 
+        // lado aparece en el otro. Es tan facil como cuando llegues a un extremo
+        // le pones la posicion del otro extremo
         if(this.jett.x <= 0){
+            
+            // seria mejor coger la anchura de la ventana pero aun no se hacerlo
             this.jett.x = 256;
         }
         else if(this.jett.x >= 256){
             this.jett.x = 0;
         }
         
-
-
     }
 
 
