@@ -1,0 +1,11 @@
+Paso de parámetros:
+
+1.: ENTRADA 			int cuadrado(int num) 
+2.: SALIDA/ENTRADA-SALIDA 	int cuadrado(int& num) => se pasa por referencia
+   2.1.: CONSTANTES 		int cuadrado(const int& num) => se pasa por referencia
+			pero no se puede editar porque es constante, sirve para datos de
+			tipos NO basicos para evitar la copia y el uso de demasiada memoria
+
+------------------ >>>>>>>> PUNTEROS <<<<<<< ------------------------
+
+direcciones 
