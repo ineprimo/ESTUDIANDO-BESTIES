@@ -1,5 +1,6 @@
 //
 import Player from "./player.js"
+import Fuel from "./fuel.js"
 
 //
 export default class Jetpac extends Phaser.Scene {
@@ -42,11 +43,19 @@ export default class Jetpac extends Phaser.Scene {
         // la raiz y las dimensiones de cada frame, para poder dividirlo en los que sea
         this.load.spritesheet('jett', './assets/sprites/jetpac.png', { frameWidth: 17, frameHeight: 24 });
 
+         // carga del sprite del fuel
+         this.load.image('fuelSprite', './assets/sprites/fuel.png');
+
     }
 
 
     //
     create(){
+
+        // ----------------------------- VARIABLES AUXILIARES ----------------------------
+        // contador del fuel, cuando se coge uno de fuel se añade al contador, cuando se llega
+        // a la nave se le pone el fuel
+        this.fuelCount = 0;
 
         // ----------------------------- CREACION DEL TILE MAP -----------------------------
         // crea un tilemap con la key 'map' (json) y con las dimensiones 64x64
@@ -96,32 +105,12 @@ export default class Jetpac extends Phaser.Scene {
         this.playerObj = new Player(this, 20, 20, 'jett');
 
 
-        // ---------------------------- COLISIONES -----------------------------
-
-        // activa las colisiones entre los dos objetos marcados, en este caso el player
-        // (playerObj) y la capa del suelo (floorLayer)
-        // !! en el primer parametro esta .getSprite() porque, al ser player una clase
-        // de tipo container, cuando le llamas no es capaz de llegar al body, que es 
-        // lo que se encarga de mirar fisicas y colisones, asi que le paso directamente
-        // el arcade sprite (this.scene.physics.add.sprite() para que pueda llegar al body.
-        // Si se hiciera al player directamente en esta escena y no en una clase a aparte 
-        // no haria falta este detalle (!! .getSprite() es un metodo que he hecho yo auxiliar) )
-        this.physics.add.collider(this.playerObj.getSprite(), this.floorLayer);
-
-
-        // en la propia capa, decide que bloques tienen collider y cuales no
-        // se puede hacer por exclusion con layer.setCollisionByExclusion([93, 94, 95, 96], true);
-        //      siendo [93, .... 96] los ids de los bloques que excluir y true que activa las colisiones
-        // tambien se pueden hacer por propiedades pero no acabo de entender el metodo:
-        //      layer.setCollisionByProperty({ colisiona: true });
-        this.floorLayer.setCollisionBetween(1,4);
-        
-        
 
         // ------------------------------- DIFICULTAD -------------------------------
 
         if(this.diff.datos == 'easy'){
             console.log('easy');
+
 
             // ajustes de cooldown de meteoritos y polvos
         }
@@ -138,11 +127,67 @@ export default class Jetpac extends Phaser.Scene {
 
         }
 
+        this.fuel1 = new Fuel(this, 50, 100);
+
+
+
+
+
+        // ---------------------------- COLISIONES -----------------------------
+
+        // activa las colisiones entre los dos objetos marcados, en este caso el player
+        // (playerObj) y la capa del suelo (floorLayer)
+        // !! en el primer parametro esta .getSprite() porque, al ser player una clase
+        // de tipo container, cuando le llamas no es capaz de llegar al body, que es 
+        // lo que se encarga de mirar fisicas y colisones, asi que le paso directamente
+        // el arcade sprite (this.scene.physics.add.sprite() para que pueda llegar al body.
+        // Si se hiciera al player directamente en esta escena y no en una clase a aparte 
+        // no haria falta este detalle (!! .getSprite() es un metodo que he hecho yo auxiliar) )
+        this.physics.add.collider(this.playerObj.getSprite(), this.floorLayer);
+        
+        // colisiones con el fuel (try 1)
+        this.physics.add.collider(this.fuel1.getSprite(), this.floorLayer);
+
+        // en la propia capa, decide que bloques tienen collider y cuales no
+        // se puede hacer por exclusion con layer.setCollisionByExclusion([93, 94, 95, 96], true);
+        //      siendo [93, .... 96] los ids de los bloques que excluir y true que activa las colisiones
+        // tambien se pueden hacer por propiedades pero no acabo de entender el metodo:
+        //      layer.setCollisionByProperty({ colisiona: true });
+        this.floorLayer.setCollisionBetween(1,4);
+
+        // colisiones entre el fuel y el player, this.fuel1 deberia ser un grupo de colisiones
+        // (placeholder)
+        this.physics.add.collider(this.playerObj.getSprite(), this.fuel1.getSprite(),() =>{
+
+            // llama al metodo dentro del propio fuel que se encarga de destruir el objeto y de añadir
+            // al contado de fuel que lo tiene
+            this.fuel1.getFuel();
+
+            this.addFuel();
+            
+        });
+        
+        
     }
 
 
     update(time, dt){
 
 	}
+
+
+    // -------------------------------------- METODOS AUXILIARES -------------------------------
+
+    // añade al contador de fuel 1 de fuel, que es lo que se puede coger en principio
+    addFuel(){
+
+        this.fuelCount += 1;
+    }
+
+    // carga la nave, que va a tener un contado propio para saber si esta cargada del todo
+    // en principio le resto uno al contador porque estoy prbando, se vera en el futuro
+    chargeSpaceship(){
+        this.fuelCount -= 1;
+    }
 
 }
