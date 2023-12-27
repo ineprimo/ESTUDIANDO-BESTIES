@@ -165,7 +165,7 @@ export default class Jetpac extends Phaser.Scene {
 
         this.ship = new Spaceship(this, 200, 159, 1);
 
-        this.meteor1 = new Meteor(this, 300, 50);
+        this.meteor1 = new Meteor(this, 200, 50);
 
 
 
@@ -254,6 +254,16 @@ export default class Jetpac extends Phaser.Scene {
         }
 
 	}
+
+    // ----------------------------------- METODOS PRINCIPALES --------------------------------
+
+    generateMeteor(){
+
+
+    }
+
+
+
 
 
     // -------------------------------------- METODOS AUXILIARES -------------------------------

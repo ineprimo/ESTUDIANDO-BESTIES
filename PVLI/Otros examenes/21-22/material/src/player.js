@@ -26,6 +26,7 @@ export default class Player extends Phaser.GameObjects.Container {
         this.d = this.scene.input.keyboard.addKey('D');
 
         // añade a la escena (jetpac.js) el objeto entero
+        // si no añades esto no se mete en la escena y no mira el preupdate
         this.scene.add.existing(this);
     }
 
