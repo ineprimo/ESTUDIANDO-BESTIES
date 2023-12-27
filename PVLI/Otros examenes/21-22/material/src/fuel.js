@@ -14,8 +14,7 @@ export default class Fuel extends Phaser.GameObjects.Container {
     
     
     getFuel () {
-        console.log("PERO COGE EL FUEL CAGON");
-       
+        
         // destruye el sprite de arcade (this.myfuel)
         this.myfuel.destroy(true);
 

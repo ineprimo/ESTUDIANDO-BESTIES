@@ -75,6 +75,8 @@ export default class Jetpac extends Phaser.Scene {
         // a la nave se le pone el fuel
         this.fuelCount = 0;
 
+        // contador para la generacion de meteoritos y fuels
+        this.meteorCooldown = 0;
 
 
 
@@ -144,19 +146,21 @@ export default class Jetpac extends Phaser.Scene {
         if(this.diff.datos == 'easy'){
             console.log('easy');
 
-
             // ajustes de cooldown de meteoritos y polvos
+            this.meteorCooldown = 2;
         }
         else if(this.diff.datos == 'mid'){
             console.log('mid');
 
             // ajustes de cooldown de meteoritos y polvos
+            this.meteorCooldown = 1;
 
         }
         else if(this.diff.datos == 'hard'){
             console.log('hard');
 
             // ajustes de cooldown de meteoritos y polvos
+            this.meteorCooldown = 0.5;
 
         }
 
@@ -166,6 +170,8 @@ export default class Jetpac extends Phaser.Scene {
         this.ship = new Spaceship(this, 200, 159, 1);
 
         this.meteor1 = new Meteor(this, 200, 50);
+
+        
 
 
 
@@ -246,6 +252,9 @@ export default class Jetpac extends Phaser.Scene {
 
     update(time, dt){
 
+
+        this.manageCooldown();
+
         // si la nave tiene todo el combustible gana el jugador
         if(this.ship.isComplete()){
             console.log("WIN");
@@ -259,9 +268,24 @@ export default class Jetpac extends Phaser.Scene {
 
     generateMeteor(){
 
+        let posX = Phaser.Math.Between(0, this.scene.sys.game.canvas.width)
+
+        this.meteor1 = new Meteor(this, posX, 0);
+    }
+
+    generateFuel(){
+
 
     }
 
+
+    manageCooldown(){
+
+        // usar un timer que no se como usarlos
+
+
+
+    }
 
 
 
