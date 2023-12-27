@@ -1,6 +1,7 @@
 //
 import Player from "./player.js"
 import Fuel from "./fuel.js"
+import Spaceship from "./ship.js";
 
 //
 export default class Jetpac extends Phaser.Scene {
@@ -43,8 +44,11 @@ export default class Jetpac extends Phaser.Scene {
         // la raiz y las dimensiones de cada frame, para poder dividirlo en los que sea
         this.load.spritesheet('jett', './assets/sprites/jetpac.png', { frameWidth: 17, frameHeight: 24 });
 
-         // carga del sprite del fuel
-         this.load.image('fuelSprite', './assets/sprites/fuel.png');
+        // carga del sprite del fuel
+        this.load.image('fuelSprite', './assets/sprites/fuel.png');
+
+        // carga del sprite de la nave
+        this.load.image('shipSprite', './assets/sprites/spaceship.png');
 
     }
 
@@ -129,7 +133,7 @@ export default class Jetpac extends Phaser.Scene {
 
         this.fuel1 = new Fuel(this, 50, 100);
 
-
+        this.ship = new Spaceship(this, 100, 100, 1);
 
 
 
@@ -163,8 +167,9 @@ export default class Jetpac extends Phaser.Scene {
             // al contado de fuel que lo tiene
             this.fuel1.getFuel();
 
+            // añade al contador de fuel
             this.addFuel();
-            
+
         });
         
         
