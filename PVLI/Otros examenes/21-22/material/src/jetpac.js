@@ -74,10 +74,6 @@ export default class Jetpac extends Phaser.Scene {
 
 
 
-
-
-
-
         // ----------------------------- CREACION DEL TILE MAP -----------------------------
         // crea un tilemap con la key 'map' (json) y con las dimensiones 64x64
         this.map = this.make.tilemap({ 
@@ -217,7 +213,14 @@ export default class Jetpac extends Phaser.Scene {
         // overlap con la hitbox de la nave
         this.physics.add.overlap(this.playerObj.getSprite(), this.ship.getHitbox(),() =>{
 
-            console.log("omg...");
+            // si tiene combustible
+            if(this.fuelCount > 0){
+                this.ship.addFuel();
+
+                this.fuelCount = 0;
+
+            }
+
 
         });
         
@@ -226,6 +229,12 @@ export default class Jetpac extends Phaser.Scene {
 
 
     update(time, dt){
+
+        if(this.ship.isComplete()){
+            console.log("WIN");
+
+            this.endGame('WIN', this)
+        }
 
 	}
 
@@ -242,6 +251,16 @@ export default class Jetpac extends Phaser.Scene {
     // en principio le resto uno al contador porque estoy prbando, se vera en el futuro
     chargeSpaceship(){
         this.fuelCount -= 1;
+    }
+
+
+    // ----------------------------------------- CAMBIAR DE ESCENA -----------------------------
+
+    endGame(win, scene){
+
+        // cambia de escena y le pasa la difficultad
+        scene.scene.start("MainMenu", {datos: win});
+
     }
 
 }

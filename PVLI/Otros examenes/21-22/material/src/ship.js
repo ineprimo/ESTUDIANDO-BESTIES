@@ -25,8 +25,11 @@ export default class Spaceship extends Phaser.GameObjects.Container {
 
     // añade combustible a la nave
     addFuel(){
+        console.log(this.currentFuel);
         //
         this.currentFuel += 1;
+
+        console.log(this.currentFuel);
     }
 
 
