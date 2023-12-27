@@ -7,7 +7,9 @@ export default class Meteor extends Phaser.GameObjects.Container {
 
         this.myMeteor = this.scene.physics.add.sprite(x, y, 'meteorSprite');
 
-        // settea la gravedad del sprite de arcade
+        // settea la gravedad del sprite de arcade (x, y), (la y esta a -100 que cancela la 
+        // gravedad del juego defaul pero quiero cambiar esto y en vez de gravedad darle
+        // velocidad y ya)
         this.myMeteor.setGravity(-100, -100);
     }
 

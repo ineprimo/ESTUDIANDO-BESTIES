@@ -15,19 +15,16 @@ export default class Jetpac extends Phaser.Scene {
     }
 
 
-    /**
-	 * función init, recibimos la información desde la escena que la llama
-	 */
+    // funcion init para recibir la informacion pasada al cambiar de escena
 	init(data){
+
+        // settea la dificultad
         this.diff = data;
 		console.log(data)
+
 	}
     // load de las texturas
     preload(){
-
-
-
-
         // ------------------------------ CARGA DEL TILE MAP ---------------------------
         // this -> escena
         // load -> carga (????)
@@ -63,6 +60,9 @@ export default class Jetpac extends Phaser.Scene {
         this.load.spritesheet('meteorSprite', './assets/sprites/meteor.png', { frameWidth: 16, frameHeight: 14 });
 
     }
+
+
+
 
 
     //
@@ -128,7 +128,7 @@ export default class Jetpac extends Phaser.Scene {
         });
         
 
-        // crea un objet de tipo player (especificaciones en el player)
+        // crea un objeto de tipo player (especificaciones en el player)
         this.playerObj = new Player(this, 20, 20, 'jett');
 
 
@@ -160,11 +160,12 @@ export default class Jetpac extends Phaser.Scene {
 
         }
 
+        // creacion de objetos placeholders para probarlos 
         this.fuel1 = new Fuel(this, 50, 100);
 
         this.ship = new Spaceship(this, 200, 159, 1);
 
-        this.meteor1 = new Meteor(this, 150, 50);
+        this.meteor1 = new Meteor(this, 300, 50);
 
 
 
@@ -184,7 +185,7 @@ export default class Jetpac extends Phaser.Scene {
         // no haria falta este detalle (!! .getSprite() es un metodo que he hecho yo auxiliar) )
         this.physics.add.collider(this.playerObj.getSprite(), this.floorLayer);
         
-        // colisiones con el fuel (try 1)
+        // colisiones con el fuel y el suelo
         this.physics.add.collider(this.fuel1.getSprite(), this.floorLayer);
 
         // en la propia capa, decide que bloques tienen collider y cuales no
@@ -221,8 +222,11 @@ export default class Jetpac extends Phaser.Scene {
 
             // si tiene combustible
             if(this.fuelCount > 0){
+
+                // añade fuel al contador de la nave
                 this.ship.addFuel();
 
+                // resetea el contador de fuel que tiene el jugador
                 this.fuelCount = 0;
             }
         });
@@ -242,6 +246,7 @@ export default class Jetpac extends Phaser.Scene {
 
     update(time, dt){
 
+        // si la nave tiene todo el combustible gana el jugador
         if(this.ship.isComplete()){
             console.log("WIN");
 
