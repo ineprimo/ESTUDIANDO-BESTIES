@@ -107,7 +107,6 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
 
-    
     // metodo auxiliar que devuelve el SPRITE DE ARCADE para poder hacer uso
     // de, por ejemplo, el body fuera de este container (para colisiones de
     // momento)

@@ -2,6 +2,7 @@
 import Player from "./player.js"
 import Fuel from "./fuel.js"
 import Spaceship from "./ship.js";
+import Meteor from "./meteor.js";
 
 //
 export default class Jetpac extends Phaser.Scene {
@@ -57,6 +58,9 @@ export default class Jetpac extends Phaser.Scene {
 
         // carga del sprite de la nave
         this.load.image('shipSprite', './assets/sprites/spaceship.png');
+
+        // carga del meteorito
+        this.load.spritesheet('meteorSprite', './assets/sprites/meteor.png', { frameWidth: 16, frameHeight: 14 });
 
     }
 
@@ -160,6 +164,8 @@ export default class Jetpac extends Phaser.Scene {
 
         this.ship = new Spaceship(this, 200, 159, 1);
 
+        this.meteor1 = new Meteor(this, 150, 50);
+
 
 
 
@@ -218,11 +224,17 @@ export default class Jetpac extends Phaser.Scene {
                 this.ship.addFuel();
 
                 this.fuelCount = 0;
-
             }
-
-
         });
+
+        // overlap con la hitbox del meteorito
+        this.physics.add.overlap(this.playerObj.getSprite(), this.meteor1.getSprite(),() =>{
+
+            console.log('LOSE');
+
+            this.endGame('LOSE', this)
+        });
+        
         
         
     }
