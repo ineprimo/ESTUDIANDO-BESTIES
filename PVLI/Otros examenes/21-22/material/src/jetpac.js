@@ -24,6 +24,9 @@ export default class Jetpac extends Phaser.Scene {
     // load de las texturas
     preload(){
 
+
+
+
         // ------------------------------ CARGA DEL TILE MAP ---------------------------
         // this -> escena
         // load -> carga (????)
@@ -34,6 +37,11 @@ export default class Jetpac extends Phaser.Scene {
 
         // carga el archivo con los patrones para el mapa (solo lo visual)
         this.load.image('mapSprites', './assets/sprites/tileset.png');
+
+
+
+
+
 
 
         // ------------------------------ CARGA DE SPRITES -------------------------------
@@ -56,10 +64,19 @@ export default class Jetpac extends Phaser.Scene {
     //
     create(){
 
+
+
         // ----------------------------- VARIABLES AUXILIARES ----------------------------
         // contador del fuel, cuando se coge uno de fuel se añade al contador, cuando se llega
         // a la nave se le pone el fuel
         this.fuelCount = 0;
+
+
+
+
+
+
+
 
         // ----------------------------- CREACION DEL TILE MAP -----------------------------
         // crea un tilemap con la key 'map' (json) y con las dimensiones 64x64
@@ -83,6 +100,12 @@ export default class Jetpac extends Phaser.Scene {
         // queremos poner el tileset
         this.floorLayer = this.map.createLayer('ground', tileset, 0, 0);
     
+
+
+
+
+
+
 
 
 
@@ -110,6 +133,12 @@ export default class Jetpac extends Phaser.Scene {
 
 
 
+
+
+
+
+
+
         // ------------------------------- DIFICULTAD -------------------------------
 
         if(this.diff.datos == 'easy'){
@@ -133,11 +162,15 @@ export default class Jetpac extends Phaser.Scene {
 
         this.fuel1 = new Fuel(this, 50, 100);
 
-        this.ship = new Spaceship(this, 100, 100, 1);
+        this.ship = new Spaceship(this, 200, 159, 1);
 
 
 
-        // ---------------------------- COLISIONES -----------------------------
+
+
+
+
+        // ---------------------------- CREACION DE COLISIONES -----------------------------
 
         // activa las colisiones entre los dos objetos marcados, en este caso el player
         // (playerObj) y la capa del suelo (floorLayer)
@@ -159,9 +192,17 @@ export default class Jetpac extends Phaser.Scene {
         //      layer.setCollisionByProperty({ colisiona: true });
         this.floorLayer.setCollisionBetween(1,4);
 
+
+
+
+
+
+        // ------------------------------------ COLISIONES ---------------------------------------
         // colisiones entre el fuel y el player, this.fuel1 deberia ser un grupo de colisiones
         // (placeholder)
-        this.physics.add.collider(this.playerObj.getSprite(), this.fuel1.getSprite(),() =>{
+        // AHORA ES UN OVERLAP QUE QUEDA MAS BONITOOOOOOOOOOOOOOOOO
+        // (para hacer colisiones es el mismo metodo pero en vez de overlap pones collider)
+        this.physics.add.overlap(this.playerObj.getSprite(), this.fuel1.getSprite(),() =>{
 
             // llama al metodo dentro del propio fuel que se encarga de destruir el objeto y de añadir
             // al contado de fuel que lo tiene
@@ -169,6 +210,14 @@ export default class Jetpac extends Phaser.Scene {
 
             // añade al contador de fuel
             this.addFuel();
+
+        });
+
+
+        // overlap con la hitbox de la nave
+        this.physics.add.overlap(this.playerObj.getSprite(), this.ship.getHitbox(),() =>{
+
+            console.log("omg...");
 
         });
         
