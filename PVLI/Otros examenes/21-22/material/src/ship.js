@@ -16,7 +16,8 @@ export default class Spaceship extends Phaser.GameObjects.Container {
         
         // le añade fisicas a la hitbox para que pueda colisionar, lo primero,
         // es el objeto al que le añades fisicas y lo segundo es si es estatico o no;
-        // que sea estatico o no no se que hace AUN
+        // que sea estatico o no dice si se queda quieto o hace caso a las fisicas.
+        // esta en true para que sea estatico
         this.scene.physics.add.existing(this.hitbox, true);
 
         // crea el contador de combustible necesario para ganar
