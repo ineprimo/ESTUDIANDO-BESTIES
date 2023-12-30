@@ -149,6 +149,9 @@ export default class Jetpac extends Phaser.Scene {
             // ajustes de cooldown de meteoritos y polvos
             // 2 segundos = 2000 milisegundos
             this.meteorCooldown = 2000;
+
+            this.totalFuel = 2
+
         }
         else if(this.diff.datos == 'mid'){
             console.log('mid');
@@ -157,6 +160,7 @@ export default class Jetpac extends Phaser.Scene {
             // 1 segundo = 1000 milisegundos
             this.meteorCooldown = 1000;
 
+            this.totalFuel = 3
         }
         else if(this.diff.datos == 'hard'){
             console.log('hard');
@@ -165,12 +169,14 @@ export default class Jetpac extends Phaser.Scene {
             // 0.5 segundos = 500 milisegundos
             this.meteorCooldown = 500;
 
+            this.totalFuel = 5
+
         }
 
         // creacion de objetos placeholders para probarlos 
-        this.fuel1 = new Fuel(this, 50, 100);
+        this.generateFuel()
 
-        this.ship = new Spaceship(this, 200, 159, 1);
+        this.ship = new Spaceship(this, 200, 159, this.totalFuel);
 
         //this.meteor1 = new Meteor(this, 200, 50);
 
@@ -211,9 +217,8 @@ export default class Jetpac extends Phaser.Scene {
         // Si se hiciera al player directamente en esta escena y no en una clase a aparte 
         // no haria falta este detalle (!! .getSprite() es un metodo que he hecho yo auxiliar) )
         this.physics.add.collider(this.playerObj.getSprite(), this.floorLayer);
-        
-        // colisiones con el fuel y el suelo
-        this.physics.add.collider(this.fuel1.getSprite(), this.floorLayer);
+
+        // colisiones con el fuel en el propio generador de fuel
 
         // en la propia capa, decide que bloques tienen collider y cuales no
         // se puede hacer por exclusion con layer.setCollisionByExclusion([93, 94, 95, 96], true);
@@ -229,20 +234,11 @@ export default class Jetpac extends Phaser.Scene {
 
         // ------------------------------------ COLISIONES ---------------------------------------
         // colisiones entre el fuel y el player, this.fuel1 deberia ser un grupo de colisiones
+        // esta en el generador de fuel ....
         // (placeholder)
         // AHORA ES UN OVERLAP QUE QUEDA MAS BONITOOOOOOOOOOOOOOOOO
         // (para hacer colisiones es el mismo metodo pero en vez de overlap pones collider)
-        this.physics.add.overlap(this.playerObj.getSprite(), this.fuel1.getSprite(),() =>{
-
-            // llama al metodo dentro del propio fuel que se encarga de destruir el objeto y de añadir
-            // al contado de fuel que lo tiene
-            this.fuel1.getFuel();
-
-            // añade al contador de fuel
-            this.addFuel();
-
-        });
-
+        
 
         // overlap con la hitbox de la nave
         this.physics.add.overlap(this.playerObj.getSprite(), this.ship.getHitbox(),() =>{
@@ -255,6 +251,9 @@ export default class Jetpac extends Phaser.Scene {
 
                 // resetea el contador de fuel que tiene el jugador
                 this.fuelCount = 0;
+
+                // crea un nuevo fuel
+                this.generateFuel()
             }
         });
 
@@ -303,7 +302,21 @@ export default class Jetpac extends Phaser.Scene {
     }
 
     generateFuel(){
+        this.fuel1 = new Fuel(this, 50, 100);
 
+         // colisiones con el fuel y el suelo
+         this.physics.add.collider(this.fuel1.getSprite(), this.floorLayer);
+
+         this.physics.add.overlap(this.playerObj.getSprite(), this.fuel1.getSprite(),() =>{
+
+            // llama al metodo dentro del propio fuel que se encarga de destruir el objeto y de añadir
+            // al contado de fuel que lo tiene
+            this.fuel1.getFuel();
+
+            // añade al contador de fuel
+            this.addFuel();
+
+        });
 
     }
 
