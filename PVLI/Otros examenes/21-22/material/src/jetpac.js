@@ -172,8 +172,17 @@ export default class Jetpac extends Phaser.Scene {
 
         this.ship = new Spaceship(this, 200, 159, 1);
 
-        this.meteor1 = new Meteor(this, 200, 50);
+        //this.meteor1 = new Meteor(this, 200, 50);
 
+        // array de meteoritos
+
+        /*
+        this.METEORS = [];
+
+        this.METEORS.push()
+
+        console.log(this.METEORS);
+*/
         
 
         // ---------------------------------- TIMER -----------------------------------
@@ -249,13 +258,7 @@ export default class Jetpac extends Phaser.Scene {
             }
         });
 
-        // overlap con la hitbox del meteorito
-        this.physics.add.overlap(this.playerObj.getSprite(), this.meteor1.getSprite(),() =>{
-
-            console.log('LOSE');
-
-            this.endGame('LOSE', this)
-        });
+        
         
         
         
@@ -283,6 +286,18 @@ export default class Jetpac extends Phaser.Scene {
         let posX = Phaser.Math.Between(0, this.sys.game.canvas.width)
 
         this.meteor1 = new Meteor(this, posX, 0);
+
+        // no es la mejor manera pero funciona, lo que querria hacer era un grupo de meteoritos
+        // y que el player colisionara con el grupo, pero al ser el meteorito de tipo container
+        // no se como hacerle llegar el arcade sprite al overlap :(   )
+
+        // overlap con la hitbox del meteorito
+        this.physics.add.overlap(this.playerObj.getSprite(), this.meteor1.getSprite(),() =>{
+
+            console.log('LOSE');
+
+            this.endGame('LOSE', this)
+        });
 
 
     }
