@@ -147,20 +147,23 @@ export default class Jetpac extends Phaser.Scene {
             console.log('easy');
 
             // ajustes de cooldown de meteoritos y polvos
-            this.meteorCooldown = 2;
+            // 2 segundos = 2000 milisegundos
+            this.meteorCooldown = 2000;
         }
         else if(this.diff.datos == 'mid'){
             console.log('mid');
 
             // ajustes de cooldown de meteoritos y polvos
-            this.meteorCooldown = 1;
+            // 1 segundo = 1000 milisegundos
+            this.meteorCooldown = 1000;
 
         }
         else if(this.diff.datos == 'hard'){
             console.log('hard');
 
             // ajustes de cooldown de meteoritos y polvos
-            this.meteorCooldown = 0.5;
+            // 0.5 segundos = 500 milisegundos
+            this.meteorCooldown = 500;
 
         }
 
@@ -173,8 +176,17 @@ export default class Jetpac extends Phaser.Scene {
 
         
 
-
-
+        // ---------------------------------- TIMER -----------------------------------
+        // se crea un timer con un delay EN MILISEGUNDOS (1000ms = 1s), un callback al que
+        // llamar cuando se acabe el timer, no se lo que es callbackScope tbh y si se repite el timer
+        // para eliminar el timer se puede usar el metodo this.meteorTimer.removeEvent(this.meteorTimer)
+        // (no lo he probado pero deberia ser asi xd)
+        this.meteorTimer = this.time.addEvent( {
+            delay: this.meteorCooldown, 
+            callback: this.generateMeteor,
+            callbackScope: this,
+            loop: true
+        });
 
 
 
@@ -268,9 +280,11 @@ export default class Jetpac extends Phaser.Scene {
 
     generateMeteor(){
 
-        let posX = Phaser.Math.Between(0, this.scene.sys.game.canvas.width)
+        let posX = Phaser.Math.Between(0, this.sys.game.canvas.width)
 
         this.meteor1 = new Meteor(this, posX, 0);
+
+
     }
 
     generateFuel(){
