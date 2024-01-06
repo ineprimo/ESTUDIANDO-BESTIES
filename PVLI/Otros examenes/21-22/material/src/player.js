@@ -41,9 +41,13 @@ export default class Player extends Phaser.GameObjects.Container {
         }
         else if (this.a.isDown){
             this.move(-this.speed);
+
+            this.jett.flipX = true;
         }
         else if(this.d.isDown){
             this.move(this.speed);
+
+            this.jett.flipX = false;
         }
 
         else if(this.a.isUp && this.d.isUp){

@@ -15,6 +15,8 @@ export default class Meteor extends Phaser.GameObjects.Container {
         this.myMeteor.body.setVelocityX(-100);
         this.myMeteor.body.setVelocityY(50);
 
+        this.dead = false;
+
         this.scene.add.existing(this);
     }
 
@@ -30,11 +32,14 @@ export default class Meteor extends Phaser.GameObjects.Container {
         }
 
 
+        console.log(this.dead);
+
         // si se pasa de altura
-        if(this.myMeteor.y > this.scene.sys.game.canvas.height){
+        if(this.myMeteor.y > this.scene.sys.game.canvas.height || this.dead == true){
 
             this.deleteMeteor();
         }
+
 
 
     }

@@ -39,6 +39,16 @@ export default class Jetpac extends Phaser.Scene {
 
 
 
+        // -------------------------------- CARGA DEL AUDIO -----------------------------
+        this.load.audio('explosion', './assets/sounds/explosion.wav');
+        this.load.audio('drop', './assets/sounds/drop.wav');
+        this.load.audio('pick', './assets/sounds/pick.wav');
+        this.load.audio('lose', './assets/sounds/lose.wav');
+        this.load.audio('win', './assets/sounds/win.wav');
+
+
+        
+        
 
 
 
@@ -78,6 +88,13 @@ export default class Jetpac extends Phaser.Scene {
         // contador para la generacion de meteoritos y fuels
         this.meteorCooldown = 0;
 
+
+        // ----------------------------- AUDIO --------------------------------------
+        this.loseSound = this.sound.add('lose');
+        this.winSound = this.sound.add('win');
+        this.explostionSound = this.sound.add('explosion');
+        this.pickSound = this.sound.add('pick');
+        this.dropSound = this.sound.add('drop');
 
 
         // ----------------------------- CREACION DEL TILE MAP -----------------------------
@@ -249,6 +266,9 @@ export default class Jetpac extends Phaser.Scene {
                 // añade fuel al contador de la nave
                 this.ship.addFuel();
 
+                //
+                this.dropSound.play();
+
                 // resetea el contador de fuel que tiene el jugador
                 this.fuelCount = 0;
 
@@ -257,9 +277,6 @@ export default class Jetpac extends Phaser.Scene {
             }
         });
 
-        
-        
-        
         
     }
 
@@ -298,6 +315,20 @@ export default class Jetpac extends Phaser.Scene {
             this.endGame('LOSE', this)
         });
 
+        this.meteor1.dead = false;
+
+
+        // overlap con la hitbox del meteorito
+        this.physics.add.collider(this.floorLayer, this.meteor1.getSprite(),() =>{
+
+            console.log(this.meteor1 + " to collide " + this.meteor1.dead);
+
+            this.meteor1.dead = true;
+
+            console.log(this.meteor1 + " collided " + this.meteor1.dead);
+
+            this.explostionSound.play();
+        });
 
     }
 
@@ -312,6 +343,8 @@ export default class Jetpac extends Phaser.Scene {
             // llama al metodo dentro del propio fuel que se encarga de destruir el objeto y de añadir
             // al contado de fuel que lo tiene
             this.fuel1.getFuel();
+
+            this.pickSound.play();
 
             // añade al contador de fuel
             this.addFuel();
@@ -350,6 +383,15 @@ export default class Jetpac extends Phaser.Scene {
     // ----------------------------------------- CAMBIAR DE ESCENA -----------------------------
 
     endGame(win, scene){
+
+        if(win == 'LOSE'){
+
+            scene.loseSound.play();
+        }
+        else if(win == 'WIN'){
+
+            scene.winSound.play();
+        }
 
         // cambia de escena y le pasa la difficultad
         scene.scene.start("MainMenu", {datos: win});
